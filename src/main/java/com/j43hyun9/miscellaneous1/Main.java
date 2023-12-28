@@ -1,26 +1,46 @@
 package com.j43hyun9.miscellaneous1;
 
-import com.j43hyun9.miscellaneous1.command.MoneyCommand;
+import com.j43hyun9.miscellaneous1.event.ClickEvent;
+import com.j43hyun9.miscellaneous1.event.MenuEventListener;
 import org.bukkit.Bukkit;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
-
 public final class Main extends JavaPlugin {
 
+
+    /**
+     * 해당 잡다한걸 관리하는 플러그인은 다음과 같은 것들의 라이브러리를 추가해줘야함.
+     * Essentials , Citizens
+     */
     Main main = this;
     int min=0, second =0;
 
     @Override
     public void onEnable() {
         this.getLogger().info("[AutoReboot] AutoReboot 1.0 v 활성화");
-        // 분 단위
+        getServer().getPluginManager().registerEvents(new ClickEvent(this), this);
+        getServer().getPluginManager().registerEvents(new MenuEventListener(), this);
+
+        // spawn Actionbar TimeTask 성능 문제로 OFF
+        //new ActionbarTimeTask(this).playerActionbarTimeTask();
+
+
         rebootSet();
 
-        getCommand("돈").setExecutor(new MoneyCommand());
 
+    }
+
+    @Override
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+
+        return super.onCommand(sender, command, label, args);
     }
 
     @Override
@@ -51,7 +71,6 @@ public final class Main extends JavaPlugin {
                 second);
         // Run
         timer.schedule(task, calendar.getTime()); // task를 calender.getTime() 시간에 실행함.
-
 
     }
 

@@ -2,15 +2,4 @@ name: Miscellaneous-1
 version: '${project.version}'
 main: com.j43hyun9.miscellaneous1.Main
 api-version: '1.20'
-commands:
-  shutdown:
-    description: Server shutdown scheduleing
-    permission: shutdown.use
-    aliases: [sdown]
-    usage: "/shutdown"
-  돈:
-    aliases: [money]
-    usage: "/돈"
-permissions:
-  shutdown.use:
-    default: op
+
